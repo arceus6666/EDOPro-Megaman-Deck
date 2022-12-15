@@ -35,7 +35,7 @@ function s.initial_effect(c)
   e3:SetValue(1)
   c:RegisterEffect(e3)
 
-  Debug.Message('reploid: ' + ARCHETYPES.REPLOID)
+  Debug.Message('reploid: ' .. ARCHETYPES.REPLOID)
 end
 
 s.listed_names = { MODIFIED_PANTHEON_AQUA }
