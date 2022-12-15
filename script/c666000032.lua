@@ -34,13 +34,15 @@ function s.initial_effect(c)
   e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard, ARCHETYPES.REPLOID))
   e3:SetValue(1)
   c:RegisterEffect(e3)
+
+  Debug.Message('reploid: ' + ARCHETYPES.REPLOID)
 end
 
-s.listed_names = { PANTHEON_AQUA }
+s.listed_names = { MODIFIED_PANTHEON_AQUA }
 s.listed_series = { ARCHETYPES.REPLOID }
 
 function s.filter(c, e, tp)
-  return c:IsCode(PANTHEON_AQUA) and c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
+  return c:IsCode(MODIFIED_PANTHEON_AQUA) and c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
 end
 
 function s.e2Condition(e, tp, eg, ep, ev, re, r, rp)
