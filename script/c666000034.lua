@@ -5,8 +5,6 @@ local s, id = GetID()
 
 function s.initial_effect(c)
   --Activate
-  -- Ritual.AddProcEqual { handler = c, filter = s.ritualfil, extrafil = s.extrafil, extratg = s.extratg, lv = 99 }
-
   local e1 = Effect.CreateEffect(c)
   e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
   e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -22,22 +20,9 @@ end
 
 s.listed_names = { OMEGA, MEGAMAN_ZERO }
 
--- function s.ritualfil(c)
---   return c:IsCode(OMEGA) and c:IsRitualMonster()
--- end
-
 function s.mfilter(c)
   return not Duel.IsPlayerAffectedByEffect(c:GetControler(), 69832741) and c:IsCode(MEGAMAN_ZERO) and c:IsAbleToRemove()
 end
-
--- function s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
---   return Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil)
--- end
-
--- function s.extratg(e, tp, eg, ep, ev, re, r, rp, chk)
---   if chk == 0 then return true end
---   Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_GRAVE)
--- end
 
 function s.gygroup(tp)
   return Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil)
@@ -67,12 +52,12 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp)
   local tg = Duel.SelectMatchingCard(tp, s.filter, tp, LOCATION_HAND, 0, 1, 1, nil, e, tp, lp)
   local tc = tg:GetFirst()
   if tc then
-    mustpay = true
-    -- Duel.PayLPCost(tp, tc:GetLevel() * 500)
+    -- TODO: maybe "remove" can be improved with a selection box
     -- Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_GRAVE)
-    Duel.Remove(gyg:GetFirst(), LOCATION_GRAVE, 0, tp)
     -- local gp = gyg:FilterSelect(tp, s.filter, 1, 1, false, nil)
     -- Duel.Remove(gp, LOCATION_GRAVE, 0, tp)
+    mustpay = true
+    Duel.Remove(gyg:GetFirst(), LOCATION_GRAVE, 0, tp)
     mustpay = false
     tc:SetMaterial(nil)
     Duel.SpecialSummon(tc, SUMMON_TYPE_RITUAL, tp, tp, true, false, POS_FACEUP)
