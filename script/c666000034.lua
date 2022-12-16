@@ -59,7 +59,7 @@ end
 function s.activate(e, tp, eg, ep, ev, re, r, rp, chk)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-  local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
+  local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk):GetCount()
 
   Debug.Message(ingy)
   -- Debug.Message('extrafil: ' .. ingy)
