@@ -26,13 +26,13 @@ s.listed_names = { OMEGA, MEGAMAN_ZERO }
 --   return c:IsCode(OMEGA) and c:IsRitualMonster()
 -- end
 
--- function s.mfilter(c)
---   return not Duel.IsPlayerAffectedByEffect(c:GetControler(), 69832741) and c:IsCode(MEGAMAN_ZERO) and c:IsAbleToRemove()
--- end
+function s.mfilter(c)
+  return not Duel.IsPlayerAffectedByEffect(c:GetControler(), 69832741) and c:IsCode(MEGAMAN_ZERO) and c:IsAbleToRemove()
+end
 
--- function s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
---   return Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil)
--- end
+function s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
+  return Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil)
+end
 
 -- function s.extratg(e, tp, eg, ep, ev, re, r, rp, chk)
 --   if chk == 0 then return true end
@@ -58,7 +58,10 @@ end
 
 function s.activate(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
-  local lp=Duel.GetLP(tp)
+
+  if s.extrafil { tp = tp } <= 0 then return end
+
+  local lp = Duel.GetLP(tp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
   local tg = Duel.SelectMatchingCard(tp, s.filter, tp, LOCATION_HAND, 0, 1, 1, nil, e, tp, lp)
   local tc = tg:GetFirst()
