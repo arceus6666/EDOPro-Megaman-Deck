@@ -5,8 +5,8 @@ local s, id = GetID()
 
 function s.initial_effect(c)
   --Activate
-  -- Ritual.AddProcEqual{handler=c, filter=s.ritualfil, extrafil=s.extrafil, extratg=s.extratg}
-  Ritual.AddProcGreaterCode{handler=c, filter=s.ritualfil, extrafil=s.extrafil, extratg=s.extratg}
+  Ritual.AddProcEqual{handler=c, filter=s.ritualfil, extrafil=s.extrafil, extratg=s.extratg}
+  -- Ritual.AddProcGreaterCode{handler=c, filter=s.ritualfil, extrafil=s.extrafil, extratg=s.extratg}
 end
 
 s.listed_names={OMEGA}
