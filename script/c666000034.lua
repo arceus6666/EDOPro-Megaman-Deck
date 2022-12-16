@@ -30,9 +30,9 @@ function s.mfilter(c)
   return not Duel.IsPlayerAffectedByEffect(c:GetControler(), 69832741) and c:IsCode(MEGAMAN_ZERO) and c:IsAbleToRemove()
 end
 
-function s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
-  return Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil)
-end
+-- function s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
+--   return Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil)
+-- end
 
 -- function s.extratg(e, tp, eg, ep, ev, re, r, rp, chk)
 --   if chk == 0 then return true end
@@ -45,7 +45,7 @@ end
 
 function s.target(e, tp, eg, ep, ev, re, r, rp, chk)
   if chk == 0 then
-    local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk):GetCount()
+    local ingy = Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil):GetCount()
     local lp = Duel.GetLP(tp)
     return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and ingy > 0
         and Duel.IsExistingMatchingCard(s.filter, tp, LOCATION_HAND, 0, 1, nil, e, tp, lp)
@@ -55,6 +55,7 @@ end
 
 function s.activate(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+  if Duel.GetMatchingGroup(s.mfilter, tp, LOCATION_GRAVE, 0, nil) < 1 then return end
 
   local lp = Duel.GetLP(tp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
@@ -63,6 +64,7 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp)
   if tc then
     mustpay = true
     -- Duel.PayLPCost(tp, tc:GetLevel() * 500)
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_GRAVE)
     mustpay = false
     tc:SetMaterial(nil)
     Duel.SpecialSummon(tc, SUMMON_TYPE_RITUAL, tp, tp, true, false, POS_FACEUP)
