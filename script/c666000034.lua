@@ -56,10 +56,10 @@ function s.target(e, tp, eg, ep, ev, re, r, rp, chk)
   Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND)
 end
 
-function s.activate(e, tp, eg, ep, ev, re, r, rp)
+function s.activate(e, tp, eg, ep, ev, re, r, rp, chk)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-  local ingy = s.extrafil { tp = tp }
+  local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
 
   Debug.Message('extrafil: ' .. ingy)
 
