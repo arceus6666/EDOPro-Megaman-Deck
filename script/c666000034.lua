@@ -61,8 +61,8 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp, chk)
 
   local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk):GetCount()
 
-  Debug.Message(ingy)
-  -- Debug.Message('extrafil: ' .. ingy)
+  -- Debug.Message(ingy)
+  if ingy < 1 then return end
 
   local lp = Duel.GetLP(tp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
