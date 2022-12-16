@@ -61,7 +61,7 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp, chk)
 
   local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk)
 
-  Debug.Message('type: ' .. type(ingy))
+  Debug.Message(ingy)
   -- Debug.Message('extrafil: ' .. ingy)
 
   local lp = Duel.GetLP(tp)
