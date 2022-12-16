@@ -5,7 +5,7 @@ local s, id = GetID()
 
 function s.initial_effect(c)
   --Activate
-  Ritual.AddProcEqual { handler = c, filter = s.ritualfil, extrafil = s.extrafil, extratg = s.extratg }
+  Ritual.AddProcEqual { handler = c, filter = s.ritualfil, extrafil = s.extrafil, extratg = s.extratg, lv = 99 }
 end
 
 s.listed_names = { OMEGA, MEGAMAN_ZERO }
