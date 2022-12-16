@@ -49,24 +49,16 @@ end
 
 function s.target(e, tp, eg, ep, ev, re, r, rp, chk)
   if chk == 0 then
+    local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk):GetCount()
     local lp = Duel.GetLP(tp)
-    return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
+    return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and ingy > 0
         and Duel.IsExistingMatchingCard(s.filter, tp, LOCATION_HAND, 0, 1, nil, e, tp, lp)
   end
   Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND)
 end
 
-function s.activate(e, tp, eg, ep, ev, re, r, rp, chk)
-
-  local loc = Duel.GetLocationCount(tp, LOCATION_MZONE)
-
-  Debug.Message(loc)
-
-  if loc <= 0 then return end
-
-  local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk):GetCount()
-
-  -- if ingy < 1 then return end
+function s.activate(e, tp, eg, ep, ev, re, r, rp)
+  if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
   local lp = Duel.GetLP(tp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
