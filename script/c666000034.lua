@@ -57,12 +57,16 @@ function s.target(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.activate(e, tp, eg, ep, ev, re, r, rp, chk)
-  if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+
+  local loc = Duel.GetLocationCount(tp, LOCATION_MZONE)
+
+  Debug.Message(loc)
+
+  if loc <= 0 then return end
 
   local ingy = s.extrafil(e, tp, eg, ep, ev, re, r, rp, chk):GetCount()
 
-  -- Debug.Message(ingy)
-  if ingy < 1 then return end
+  -- if ingy < 1 then return end
 
   local lp = Duel.GetLP(tp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
