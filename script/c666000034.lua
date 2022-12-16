@@ -71,7 +71,7 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp)
     -- Duel.PayLPCost(tp, tc:GetLevel() * 500)
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_GRAVE)
     -- Duel.Remove(gyg:GetFirst(), LOCATION_GRAVE, 0, tp)
-    local gp = gyg:FilterSelect(tp, s.filter, 1, 1, false)
+    local gp = gyg:FilterSelect(tp, s.filter, 1, 1, false, nil)
     Duel.Remove(gp, LOCATION_GRAVE, 0, tp)
     mustpay = false
     tc:SetMaterial(nil)
