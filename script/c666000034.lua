@@ -70,7 +70,8 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp)
     mustpay = true
     -- Duel.PayLPCost(tp, tc:GetLevel() * 500)
     -- Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_GRAVE)
-    Duel.Remove(gyg:GetFirst(), LOCATION_GRAVE, 0, tp)
+    -- Duel.Remove(gyg:GetFirst(), LOCATION_GRAVE, 0, tp)
+    Duel.Remove(gyg:FilterSelect(tp, s.filter, 1, 1), LOCATION_GRAVE, 0, tp)
     mustpay = false
     tc:SetMaterial(nil)
     Duel.SpecialSummon(tc, SUMMON_TYPE_RITUAL, tp, tp, true, false, POS_FACEUP)
