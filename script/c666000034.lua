@@ -59,7 +59,9 @@ end
 function s.activate(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-  if s.extrafil { tp = tp } <= 0 then return end
+  local ingy = s.extrafil { tp = tp }
+
+  Debug.Message('extrafil: ' .. ingy)
 
   local lp = Duel.GetLP(tp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
