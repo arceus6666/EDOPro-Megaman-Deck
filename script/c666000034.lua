@@ -40,10 +40,7 @@ end
 -- end
 
 function s.filter(c, e, tp, lp)
-  if not c:IsCode(OMEGA) then
-    return false
-  end
-  return lp > c:GetLevel() * 500
+  return c:IsCode(OMEGA)
 end
 
 function s.target(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -65,7 +62,7 @@ function s.activate(e, tp, eg, ep, ev, re, r, rp)
   local tc = tg:GetFirst()
   if tc then
     mustpay = true
-    Duel.PayLPCost(tp, tc:GetLevel() * 500)
+    -- Duel.PayLPCost(tp, tc:GetLevel() * 500)
     mustpay = false
     tc:SetMaterial(nil)
     Duel.SpecialSummon(tc, SUMMON_TYPE_RITUAL, tp, tp, true, false, POS_FACEUP)
