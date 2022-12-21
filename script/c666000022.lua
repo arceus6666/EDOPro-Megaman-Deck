@@ -5,7 +5,7 @@ local s, id = GetID()
 
 function s.initial_effect(c)
   --synchro summon
-  Synchro.AddProcedure(c, aux.FilterSummonCode(CIEL), 1, 1,
+  Synchro.AddProcedure(c, aux.FilterSummonCode(HUMANS.CIEL), 1, 1,
     Synchro.NonTunerEx(Card.IsSetCard, ARCHETYPES.MEGAMAN), 1, 99)
   c:EnableReviveLimit()
   c:SetUniqueOnField(1, 1, id)
