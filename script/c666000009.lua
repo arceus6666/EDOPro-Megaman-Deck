@@ -1,4 +1,4 @@
--- VENT model fx
+-- vent model fx
 
 Duel.LoadScript("functions.lua")
 local s, id = GetID()
@@ -30,19 +30,22 @@ function s.initial_effect(c)
   c:RegisterEffect(e2)
 end
 
-s.listed_names = { VENT_MODEL_X, BIOMETAL_F }
+s.listed_names = { MEGAMEN.VENT_MODEL_X, BIOMETALS.BIOMETAL_F }
 
 function s.spfilter(c)
-  return c:IsCode(VENT_MODEL_X) and c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETAL_F)
+  return c:IsCode(MEGAMEN.VENT_MODEL_X) and
+      c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETALS.BIOMETAL_F)
 end
 
 function s.e1Condition(e, c)
   if c == nil then return true end
-  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1, true, c, c:GetControler(), nil, false, nil)
+  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1,
+    true, c, c:GetControler(), nil, false, nil)
 end
 
 function s.e1Target(e, tp, eg, ep, ev, re, r, rp, c)
-  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true, c, nil, nil, false, nil)
+  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true,
+    c, nil, nil, false, nil)
   if c ~= 0 then
     local tc = Duel.GetAttacker()
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, tc, 1, 0, 0)
@@ -68,10 +71,16 @@ end
 
 function s.e2Target(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
   local c = e:GetHandler()
-  if chkc then return chkc:IsLocation(LOCATION_MZONE) and s.desfilter(chkc, c:GetAttack()) end
-  if chk == 0 then return Duel.IsExistingTarget(s.desfilter, tp, LOCATION_MZONE, LOCATION_MZONE, 1, nil, c:GetAttack()) end
+  if chkc then
+    return chkc:IsLocation(LOCATION_MZONE) and
+        s.desfilter(chkc, c:GetAttack())
+  end
+  if chk == 0 then return Duel.IsExistingTarget(s.desfilter, tp,
+      LOCATION_MZONE, LOCATION_MZONE, 1, nil, c:GetAttack())
+  end
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-  local g = Duel.SelectTarget(tp, s.desfilter, tp, LOCATION_MZONE, LOCATION_MZONE, 1, 1, nil, c:GetAttack())
+  local g = Duel.SelectTarget(tp, s.desfilter, tp, LOCATION_MZONE,
+    LOCATION_MZONE, 1, 1, nil, c:GetAttack())
   Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, 0, 0)
 end
 

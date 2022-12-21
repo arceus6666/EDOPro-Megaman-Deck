@@ -75,10 +75,12 @@ function s.e2Target(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
   end
   if chk == 0 then
     return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-        Duel.IsExistingMatchingCard(s.spfilter, tp, LOCATION_GRAVE, 0, 1, nil, e, tp)
+        Duel.IsExistingMatchingCard(s.spfilter, tp, LOCATION_GRAVE, 0, 1,
+          nil, e, tp)
   end
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-  local g = Duel.SelectTarget(tp, s.spfilter, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
+  local g = Duel.SelectTarget(tp, s.spfilter, tp, LOCATION_GRAVE, 0, 1, 1,
+    nil, e, tp)
   Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, 1, 0, 0)
 end
 

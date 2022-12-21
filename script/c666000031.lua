@@ -17,7 +17,7 @@ function s.initial_effect(c)
   c:RegisterEffect(e1)
 end
 
-s.listed_names = { 666000032 }
+s.listed_names = { REPLOIDS.MODIFIED_PANTHEON_AQUA }
 
 function s.e1Condition(e, tp, eg, ep, ev, re, r, rp)
   return tp == Duel.GetTurnPlayer()
@@ -29,22 +29,26 @@ function s.e1Cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.spfilter(c, e, tp)
-  return c:IsCode(666000032) and c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
+  return c:IsCode(REPLOIDS.MODIFIED_PANTHEON_AQUA) and
+      c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
 end
 
 function s.e1Target(e, tp, eg, ep, ev, re, r, rp, chk)
   local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
   if e:GetHandler():GetSequence() < 5 then ft = ft + 1 end
   if chk == 0 then return ft > 0 and
-        Duel.IsExistingMatchingCard(s.spfilter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil, e, tp)
+        Duel.IsExistingMatchingCard(s.spfilter, tp,
+          LOCATION_HAND + LOCATION_DECK, 0, 1, nil, e, tp)
   end
-  Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_DECK)
+  Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp,
+    LOCATION_HAND + LOCATION_DECK)
 end
 
 function s.e1Operation(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-  local tc = Duel.SelectMatchingCard(tp, s.spfilter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, e, tp):GetFirst()
+  local tc = Duel.SelectMatchingCard(tp, s.spfilter, tp,
+    LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, e, tp):GetFirst()
   if tc and Duel.SpecialSummon(tc, 1, tp, tp, true, true, POS_FACEUP) > 0 then
     tc:CompleteProcedure()
   end

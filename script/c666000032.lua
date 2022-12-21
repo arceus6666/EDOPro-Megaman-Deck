@@ -34,15 +34,14 @@ function s.initial_effect(c)
   e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard, ARCHETYPES.REPLOID))
   e3:SetValue(1)
   c:RegisterEffect(e3)
-
-  Debug.Message('reploid: ' .. ARCHETYPES.REPLOID)
 end
 
-s.listed_names = { MODIFIED_PANTHEON_AQUA }
+s.listed_names = { REPLOIDS.MODIFIED_PANTHEON_AQUA }
 s.listed_series = { ARCHETYPES.REPLOID }
 
 function s.filter(c, e, tp)
-  return c:IsCode(MODIFIED_PANTHEON_AQUA) and c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
+  return c:IsCode(REPLOIDS.MODIFIED_PANTHEON_AQUA) and
+      c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
 end
 
 function s.e2Condition(e, tp, eg, ep, ev, re, r, rp)
@@ -60,7 +59,8 @@ end
 function s.e2Operation(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-  local g = Duel.SelectMatchingCard(tp, aux.NecroValleyFilter(s.filter), tp, 0x13, 0, 1, 1, nil, e, tp)
+  local g = Duel.SelectMatchingCard(tp, aux.NecroValleyFilter(s.filter), tp,
+    0x13, 0, 1, 1, nil, e, tp)
   if #g > 0 then
     Duel.SpecialSummon(g, 0, tp, tp, true, true, POS_FACEUP)
   end

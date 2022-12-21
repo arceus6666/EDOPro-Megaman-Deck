@@ -5,7 +5,8 @@ local s, id = GetID()
 
 function s.initial_effect(c)
   --synchro summon
-  Synchro.AddProcedure(c, aux.FilterSummonCode(CIEL), 1, 1, Synchro.NonTunerEx(Card.IsSetCard, ARCHETYPES.MEGAMAN), 1, 99)
+  Synchro.AddProcedure(c, aux.FilterSummonCode(CIEL), 1, 1,
+    Synchro.NonTunerEx(Card.IsSetCard, ARCHETYPES.MEGAMAN), 1, 99)
   c:EnableReviveLimit()
   c:SetUniqueOnField(1, 1, id)
 
@@ -20,10 +21,10 @@ function s.initial_effect(c)
 end
 
 --ciel
-s.material = { CIEL }
+s.material = { HUMANS.CIEL }
 
 --ciel
-s.listed_names = { CIEL }
+s.listed_names = { HUMANS.CIEL }
 
 --megaman
 s.listed_series = { ARCHETYPES.MEGAMAN }
@@ -33,7 +34,8 @@ function s.filter(c)
 end
 
 function s.e1Value(e, c)
-  local g = Duel.GetMatchingGroup(s.filter, c:GetControler(), LOCATION_GRAVE, 0, nil)
+  local g = Duel.GetMatchingGroup(s.filter, c:GetControler(),
+    LOCATION_GRAVE, 0, nil)
   local ct = g:GetClassCount(Card.GetCode)
   return ct * 500
 end

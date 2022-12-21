@@ -26,19 +26,22 @@ function s.initial_effect(c)
 end
 
 --vent, biometal x
-s.listed_names = { VENT, BIOMETAL_X }
+s.listed_names = { MEGAMEN.VENT, BIOMETALS.BIOMETAL_X }
 
 function s.spfilter(c, tp)
-  return c:IsCode(VENT) and c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETAL_X)
+  return c:IsCode(MEGAMEN.VENT) and
+      c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETALS.BIOMETAL_X)
 end
 
 function s.e1Condition(e, c)
   if c == nil then return true end
-  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1, true, c, c:GetControler(), nil, false, nil)
+  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1,
+    true, c, c:GetControler(), nil, false, nil)
 end
 
 function s.e1Target(e, tp, eg, ep, ev, re, r, rp, c)
-  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true, c, nil, nil, false, nil)
+  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true,
+    c, nil, nil, false, nil)
   if g then
     g:KeepAlive()
     e:SetLabelObject(g)

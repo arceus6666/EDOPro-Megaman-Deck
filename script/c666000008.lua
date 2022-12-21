@@ -18,10 +18,6 @@ function s.initial_effect(c)
   c:RegisterEffect(e1)
 
   --direct attack
-  -- local e2 = Effect.CreateEffect(c)
-  -- e2:SetType(EFFECT_TYPE_SINGLE)
-  -- e2:SetCode(EFFECT_PIERCE)
-  -- c:RegisterEffect(e2)
   local e2 = Effect.CreateEffect(c)
   e2:SetType(EFFECT_TYPE_SINGLE)
   e2:SetCode(EFFECT_DIRECT_ATTACK)
@@ -29,19 +25,22 @@ function s.initial_effect(c)
   c:RegisterEffect(e2)
 end
 
-s.listed_names = { VENT_MODEL_X, BIOMETAL_H }
+s.listed_names = { MEGAMEN.VENT_MODEL_X, BIOMETALS.BIOMETAL_H }
 
 function s.spfilter(c)
-  return c:IsCode(VENT_MODEL_X) and c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETAL_H)
+  return c:IsCode(MEGAMEN.VENT_MODEL_X) and
+      c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETALS.BIOMETAL_H)
 end
 
 function s.e1Condition(e, c)
   if c == nil then return true end
-  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1, true, c, c:GetControler(), nil, false, nil)
+  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1,
+    true, c, c:GetControler(), nil, false, nil)
 end
 
 function s.e1Target(e, tp, eg, ep, ev, re, r, rp, c)
-  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true, c, nil, nil, false, nil)
+  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true,
+    c, nil, nil, false, nil)
   if c ~= 0 then
     local tc = Duel.GetAttacker()
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, tc, 1, 0, 0)
@@ -62,8 +61,12 @@ function s.e1Operation(e, tp, eg, ep, ev, re, r, rp, c)
 end
 
 function s.e2Condition(e)
-  local ATTRIBUTES = ATTRIBUTE_EARTH | ATTRIBUTE_WATER | ATTRIBUTE_LIGHT | ATTRIBUTE_DARK
-  local g = Duel.GetMatchingGroup(Card.IsFaceup, e:GetHandlerPlayer(), 0, LOCATION_MZONE, nil)
+  local ATTRIBUTES = ATTRIBUTE_EARTH |
+      ATTRIBUTE_WATER |
+      ATTRIBUTE_LIGHT |
+      ATTRIBUTE_DARK
+  local g = Duel.GetMatchingGroup(Card.IsFaceup, e:GetHandlerPlayer(), 0,
+    LOCATION_MZONE, nil)
   local ct = #g
   return ct > 0 and g:FilterCount(Card.IsAttribute, nil, ATTRIBUTES) == ct
 end
