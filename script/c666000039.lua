@@ -38,7 +38,7 @@ function s.e1Operation(e, tp, eg, ep, ev, re, r, rp)
       LOCATION_DECK + LOCATION_EXTRA)
     if ct > 0 then
       Duel.BreakEffect()
-      Duel.SetLP(tp, Duel.GetLP(tp) + ct * 100)
+      Duel.SetLP(tp, Duel.GetLP(tp) + ct * 500)
     end
   end
 end
