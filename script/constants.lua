@@ -1,7 +1,8 @@
 ARCHETYPES = {
-  MEGAMAN = 0x6D6D,
-  HUMAN   = 0x6D6E,
-  REPLOID = 0x6D6F
+  MEGAMAN    = 0x6D6D,
+  HUMAN      = 0x6D6E,
+  REPLOID    = 0x6D6F,
+  PSUEDOROID = 0x6D70
 }
 
 -- AILE          = 666000001
