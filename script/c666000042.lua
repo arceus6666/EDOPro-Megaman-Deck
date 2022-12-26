@@ -22,16 +22,20 @@ function s.initial_effect(c)
   e2:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
   e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
   e2:SetCode(EVENT_BATTLE_DESTROYED)
-  e2:SetCondition(s.condition)
-  e2:SetTarget(s.target)
-  e2:SetOperation(s.operation)
+  e2:SetCondition(s.e2Condition)
+  e2:SetTarget(s.e2Target)
+  e2:SetOperation(s.e2Operation)
   c:RegisterEffect(e2)
 end
 
-s.listed_names = { BIOMETALS.BIOMETAL_H }
+s.listed_names = {
+  BIOMETALS.BIOMETAL_H,
+  PSEUDORIODS.HIVOLT,
+  PSEUDORIODS.HURIICAUNE
+}
 s.material_setcode = { 0x8, ARCHETYPES.PSUEDOROID }
 
-function s.condition(e, tp, eg, ep, ev, re, r, rp)
+function s.e2Condition(e, tp, eg, ep, ev, re, r, rp)
   return e:GetHandler():IsLocation(LOCATION_GRAVE) and
       e:GetHandler():IsReason(REASON_BATTLE)
 end
@@ -40,14 +44,14 @@ function s.filter(c)
   return c:IsCode(BIOMETALS.BIOMETAL_H) and c:IsAbleToHand()
 end
 
-function s.target(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e2Target(e, tp, eg, ep, ev, re, r, rp, chk)
   if chk == 0 then
     return Duel.IsExistingMatchingCard(s.filter, tp, LOCATION_DECK, 0, 1, nil)
   end
   Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
 end
 
-function s.operation(e, tp, eg, ep, ev, re, r, rp)
+function s.e2Operation(e, tp, eg, ep, ev, re, r, rp)
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATOHAND)
   local g = Duel.SelectMatchingCard(tp, s.filter, tp, LOCATION_DECK,
     0, 1, 1, nil)
