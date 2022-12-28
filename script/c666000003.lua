@@ -26,22 +26,25 @@ function s.initial_effect(c)
 end
 
 --aile, biometal x
-s.listed_names = { AILE, BIOMETAL_X }
+s.listed_names = { MEGAMEN.AILE, BIOMETALS.BIOMETAL_X }
 
 -- check if aile is equipped wiht biometal x
 function s.spfilter(c, tp)
-  return c:IsCode(AILE) and c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETAL_X)
+  return c:IsCode(MEGAMEN.AILE) and
+      c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETALS.BIOMETAL_X)
 end
 
 -- checks if can summon
 function s.e1Condition(e, c)
   if c == nil then return true end
-  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1, true, c, c:GetControler(), nil, false, nil)
+  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1,
+    false, 1, true, c, c:GetControler(), nil, false, nil)
 end
 
 -- makes spsummon
 function s.e1Target(e, tp, eg, ep, ev, re, r, rp, c)
-  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true, c, nil, nil, false, nil)
+  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false,
+    true, true, c, nil, nil, false, nil)
   if g then
     g:KeepAlive()
     e:SetLabelObject(g)

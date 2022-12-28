@@ -49,3 +49,7 @@ end
 function Card.IsMegamen(c)
   return c:IsCode(table.unpack(MEGAMEN))
 end
+
+function Card.IsIDGroup(c, ids)
+  return c:IsCode(table.unpack(ids))
+end

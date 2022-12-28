@@ -4,7 +4,7 @@ Duel.LoadScript("functions.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-  aux.AddEquipProcedure(c, nil, FBF(VENT_MODEL_X))
+  aux.AddEquipProcedure(c, nil, FBF(MEGAMEN.VENT_MODEL_X))
 
   --equip effect
   ATKUP(c, 700)
@@ -16,4 +16,4 @@ function s.initial_effect(c)
   AvoidDMG(c)
 end
 
-s.listed_names = { VENT_MODEL_X }
+s.listed_names = { MEGAMEN.VENT_MODEL_X }

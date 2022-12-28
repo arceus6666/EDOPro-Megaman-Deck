@@ -33,19 +33,22 @@ function s.initial_effect(c)
   c:RegisterEffect(e3)
 end
 
-s.listed_names = { AILE_MODEL_X, BIOMETAL_L }
+s.listed_names = { MEGAMEN.AILE_MODEL_X, BIOMETALS.BIOMETAL_L }
 
 function s.spfilter(c)
-  return c:IsCode(AILE_MODEL_X) and c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETAL_L)
+  return c:IsCode(MEGAMEN.AILE_MODEL_X) and
+      c:GetEquipGroup():IsExists(Card.IsCode, 1, nil, BIOMETALS.BIOMETAL_L)
 end
 
 function s.e1Condition(e, c)
   if c == nil then return true end
-  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1, true, c, c:GetControler(), nil, false, nil)
+  return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1, false, 1,
+    true, c, c:GetControler(), nil, false, nil)
 end
 
 function s.e1Target(e, tp, eg, ep, ev, re, r, rp, c)
-  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true, c, nil, nil, false, nil)
+  local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true,
+    c, nil, nil, false, nil)
   if c ~= 0 then
     local tc = Duel.GetAttacker()
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, tc, 1, 0, 0)
