@@ -56,8 +56,8 @@ function s.e1Operation(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
       Duel.IsPlayerCanSpecialSummonMonster(tp, TOKENS.CYBER_ELF, 0, TYPES_TOKEN,
         500, 500, 1, ARCHETYPES.CYBER_ELF, ATTRIBUTE_LIGHT) then
-    math.randomseed(os.clock() * 100000000000)
-    local tkn = math.random(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 5)
+    -- math.randomseed(os.clock() * 100000000000)
+    local tkn = Duel.GetRandomNumber(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 5)
     local token = Duel.CreateToken(tp, tkn)
     Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
   end
