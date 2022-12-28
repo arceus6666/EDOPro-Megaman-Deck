@@ -49,8 +49,8 @@ function s.e1Condition(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.filter(c)
-  return c:IsType(TYPE_NORMAL) and
-      c:IsLevelAbove(4) and
+  return c:IsType(TYPE_EFFECT) and
+      c:IsLevelBelow(5) and
       c:IsAbleToHand()
 end
 
