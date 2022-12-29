@@ -13,6 +13,18 @@ function s.initial_effect(c)
     aux.FilterBoolFunction(Card.IsCode, CYBER_ELFS.PREA), true,
     Synchro.NonTunerEx(Card.IsSetCard, ARCHETYPES.CYBER_ELF), false)
 
+  --Search 1 Ritual Spell from your Deck or GY
+  local ep = Effect.CreateEffect(c)
+  ep:SetDescription(aux.Stringid(id, 0))
+  ep:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+  ep:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+  ep:SetCode(EVENT_PHASE + PHASE_END)
+  ep:SetRange(LOCATION_PZONE)
+  ep:SetCountLimit(1, id)
+  ep:SetTarget(s.epTarget)
+  ep:SetOperation(s.epOperation)
+  c:RegisterEffect(ep)
+
   --token
   local e1 = Effect.CreateEffect(c)
   e1:SetDescription(aux.Stringid(id, 0))
@@ -51,6 +63,39 @@ s.material = { CYBER_ELFS.CREA, CYBER_ELFS.PREA }
 s.listed_names = { CYBER_ELFS.CREA, CYBER_ELFS.PREA, TOKENS.CYBER_ELF, id }
 s.listed_series = { ARCHETYPES.CYBER_ELF }
 s.synchro_nt_required = 1
+
+function s.thfilter(c)
+  return c:IsSetCard(ARCHETYPES.CYBER_ELF) and
+      c:IsSpellTrap() and
+      c:IsAbleToHand()
+end
+
+function s.epTarget(e, tp, eg, ep, ev, re, r, rp, chk)
+  local c = e:GetHandler()
+  if chk == 0 then
+    return Duel.IsExistingMatchingCard(s.thfilter, tp,
+      LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) and
+        c:IsAbleToHand()
+  end
+  Duel.SetOperationInfo(0, CATEGORY_TOHAND, c, 2, tp,
+    LOCATION_DECK + LOCATION_GRAVE + LOCATION_PZONE)
+end
+
+function s.epOperation(e, tp, eg, ep, ev, re, r, rp)
+  local c = e:GetHandler()
+  if not e:GetHandler():IsRelateToEffect(e) then return end
+  Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATOHAND)
+  local g = Duel.SelectMatchingCard(tp, aux.NecroValleyFilter(s.thfilter),
+    tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+  if #g > 0 and Duel.SendtoHand(g, nil, REASON_EFFECT) > 0 and
+      g:GetFirst():IsLocation(LOCATION_HAND) then
+    Duel.ConfirmCards(1 - tp, g)
+    Duel.BreakEffect()
+    if Duel.SendtoHand(c, nil, REASON_EFFECT) > 0 then
+      Duel.ConfirmCards(1 - tp, c)
+    end
+  end
+end
 
 function s.e1Condition(e, tp, eg, ep, ev, re, r, rp)
   return Duel.IsTurnPlayer(tp)
