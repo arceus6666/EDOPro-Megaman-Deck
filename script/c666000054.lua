@@ -13,7 +13,7 @@ function s.initial_effect(c)
     aux.FilterBoolFunction(Card.IsCode, CYBER_ELFS.PREA), true,
     Synchro.NonTunerEx(Card.IsSetCard, ARCHETYPES.CYBER_ELF), false)
 
-  --Search 1 Ritual Spell from your Deck or GY
+  --Search 1 cyber-elf Spell/trap from your Deck or GY
   local ep = Effect.CreateEffect(c)
   ep:SetDescription(aux.Stringid(id, 0))
   ep:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
@@ -102,9 +102,9 @@ function s.epOperation(e, tp, eg, ep, ev, re, r, rp)
       g:GetFirst():IsLocation(LOCATION_HAND) then
     Duel.ConfirmCards(1 - tp, g)
     Duel.BreakEffect()
-    if Duel.SendtoHand(c, nil, REASON_EFFECT) > 0 then
-      Duel.ConfirmCards(1 - tp, c)
-    end
+    -- if Duel.SendtoHand(c, nil, REASON_EFFECT) > 0 then
+    --   Duel.ConfirmCards(1 - tp, c)
+    -- end
   end
 end
 
