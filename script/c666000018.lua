@@ -4,28 +4,55 @@ Duel.LoadScript("functions.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-  c:EnableReviveLimit()
+  Pendulum.AddProcedure(c)
+  -- c:EnableReviveLimit()
 
-  --Cannot be destroyed
+  c:EnableUnsummonable()
   local e1 = Effect.CreateEffect(c)
   e1:SetType(EFFECT_TYPE_SINGLE)
-  e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-  e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-  e1:SetRange(LOCATION_MZONE)
-  e1:SetValue(s.e1Value)
+  e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+  e1:SetCode(EFFECT_REVIVE_LIMIT)
+  e1:SetCondition(s.e1Condition)
   c:RegisterEffect(e1)
 
-  local e2 = e1:Clone()
-  e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+  --Special Summon condition
+  local e2 = Effect.CreateEffect(c)
+  e2:SetType(EFFECT_TYPE_SINGLE)
+  e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+  e2:SetCode(EFFECT_SPSUMMON_CONDITION)
   e2:SetValue(s.e2Value)
   c:RegisterEffect(e2)
+
+  --Cannot be destroyed
+  local e3 = Effect.CreateEffect(c)
+  e3:SetType(EFFECT_TYPE_SINGLE)
+  e3:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+  e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+  e3:SetRange(LOCATION_MZONE)
+  e3:SetValue(s.e3Value)
+  c:RegisterEffect(e3)
+
+  local e4 = e3:Clone()
+  e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+  e4:SetValue(s.e4Value)
+  c:RegisterEffect(e4)
 end
 
-function s.e1Value(e, c)
+function s.e1Condition(e)
+  return not e:GetHandler():IsLocation(LOCATION_HAND)
+end
+
+function s.e2Value(e, se, sp, st)
+  return (st & SUMMON_TYPE_RITUAL) == SUMMON_TYPE_RITUAL or
+      ((st & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM and
+          e:GetHandler():IsLocation(LOCATION_HAND))
+end
+
+function s.e3Value(e, c)
   return not c:IsType(TYPE_RITUAL)
 end
 
-function s.e2Value(e, re, rp)
+function s.e4Value(e, re, rp)
   return re:IsActiveType(TYPE_MONSTER) and
       not re:IsActiveType(TYPE_RITUAL)
 end
