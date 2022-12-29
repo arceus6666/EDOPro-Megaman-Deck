@@ -57,6 +57,17 @@ function s.initial_effect(c)
   e3:SetTarget(s.e3Target)
   e3:SetOperation(s.e3Operation)
   c:RegisterEffect(e3)
+
+  --Place itself in the pendulum zone
+  local e4 = Effect.CreateEffect(c)
+  e4:SetDescription(aux.Stringid(id, 2))
+  e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+  e4:SetProperty(EFFECT_FLAG_DELAY)
+  e4:SetCode(EVENT_DESTROYED)
+  e4:SetCondition(s.e4Condition)
+  e4:SetTarget(s.e4Target)
+  e4:SetOperation(s.e4Operation)
+  c:RegisterEffect(e4)
 end
 
 s.material = { CYBER_ELFS.CREA, CYBER_ELFS.PREA }
@@ -111,9 +122,8 @@ function s.e1Operation(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
       Duel.IsPlayerCanSpecialSummonMonster(tp, TOKENS.CYBER_ELF, 0, TYPES_TOKEN,
         500, 500, 1, RACE_SPELLCASTER, ATTRIBUTE_LIGHT) then
-    -- math.randomseed(os.clock() * 100000000000)
-    local tkn = Duel.GetRandomNumber(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 4)
-    local token = Duel.CreateToken(tp, tkn)
+    local rndtkn = Duel.GetRandomNumber(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 4)
+    local token = Duel.CreateToken(tp, rndtkn)
     Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
   end
 end
@@ -142,5 +152,24 @@ function s.e3Operation(e, tp, eg, ep, ev, re, r, rp)
     tp, LOCATION_GRAVE + LOCATION_HAND, 0, 1, 1, nil, e, tp)
   if #g > 0 then
     Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP)
+  end
+end
+
+function s.e4Condition(e, tp, eg, ep, ev, re, r, rp)
+  local c = e:GetHandler()
+  return r & REASON_EFFECT + REASON_BATTLE ~= 0 and
+      c:IsPreviousLocation(LOCATION_MZONE) and
+      c:IsFaceup()
+end
+
+function s.e4Target(e, tp, eg, ep, ev, re, r, rp, chk)
+  if chk == 0 then return Duel.CheckPendulumZones(tp) end
+end
+
+function s.e4Operation(e, tp, eg, ep, ev, re, r, rp)
+  if not Duel.CheckPendulumZones(tp) then return false end
+  local c = e:GetHandler()
+  if c:IsRelateToEffect(e) then
+    Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
   end
 end
