@@ -5,9 +5,8 @@ local s, id = GetID()
 
 function s.initial_effect(c)
   Pendulum.AddProcedure(c)
-  -- c:EnableReviveLimit()
-
   c:EnableUnsummonable()
+
   local e1 = Effect.CreateEffect(c)
   e1:SetType(EFFECT_TYPE_SINGLE)
   e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -36,7 +35,19 @@ function s.initial_effect(c)
   e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
   e4:SetValue(s.e4Value)
   c:RegisterEffect(e4)
+
+  --def
+  local e5 = Effect.CreateEffect(c)
+  e5:SetType(EFFECT_TYPE_FIELD)
+  e5:SetCode(EFFECT_UPDATE_DEFENSE)
+  e5:SetRange(LOCATION_PZONE)
+  e5:SetTargetRange(LOCATION_MZONE, 0)
+  e5:SetTarget(s.e5Target)
+  e5:SetValue(500)
+  c:RegisterEffect(e5)
 end
+
+s.listed_series = { ARCHETYPES.MEGAMAN }
 
 function s.e1Condition(e)
   return not e:GetHandler():IsLocation(LOCATION_HAND)
@@ -55,4 +66,8 @@ end
 function s.e4Value(e, re, rp)
   return re:IsActiveType(TYPE_MONSTER) and
       not re:IsActiveType(TYPE_RITUAL)
+end
+
+function s.e5Target(e, c)
+  return c:IsSetCard(ARCHETYPES.MEGAMAN)
 end
