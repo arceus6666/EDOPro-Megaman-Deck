@@ -122,8 +122,8 @@ function s.e1Operation(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
       Duel.IsPlayerCanSpecialSummonMonster(tp, TOKENS.CYBER_ELF, 0, TYPES_TOKEN,
         500, 500, 1, RACE_SPELLCASTER, ATTRIBUTE_LIGHT) then
-    local rndtkn = Duel.GetRandomNumber(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 4)
-    local token = Duel.CreateToken(tp, rndtkn)
+    -- local rndtkn = Duel.GetRandomNumber(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 4)
+    local token = Duel.CreateToken(tp, TOKENS.CYBER_ELF)
     Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
   end
 end
