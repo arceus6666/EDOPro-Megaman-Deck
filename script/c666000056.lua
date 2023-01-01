@@ -9,14 +9,19 @@ function s.initial_effect(c)
   --cannot special summon
   CannotSpecialSummon(c)
 
-  --disable effect
-  local e3 = Effect.CreateEffect(c)
-  e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-  e3:SetCode(EVENT_CHAIN_SOLVING)
-  e3:SetRange(LOCATION_MZONE)
-  e3:SetOperation(s.disop)
-  c:RegisterEffect(e3)
+  --disable
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_DISABLE)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetTargetRange(LOCATION_SZONE,LOCATION_SZONE)
+	e2:SetTarget(s.distg)
+	c:RegisterEffect(e2)
 
+end
+
+function s.distg(e,c)
+	return c:IsSpell()
 end
 
 function s.disop(e, tp, eg, ep, ev, re, r, rp)
