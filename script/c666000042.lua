@@ -99,7 +99,7 @@ function s.e3Operation(e, tp, eg, ep, ev, re, r, rp)
   local g = Duel.SelectMatchingCard(tp, s.filter2, tp, LOCATION_DECK, 0, 1,
     1, nil, e, tp)
   if #g > 0 then
-    Duel.SpecialSummonStep(g:GetFirst(), 0, tp, tp, false, false, POS_FACEUP)
+    Duel.SpecialSummonStep(g:GetFirst(), 0, tp, tp, true, true, POS_FACEUP)
     Duel.SpecialSummonComplete()
   end
 end
