@@ -94,29 +94,30 @@ end
 function s.e3Operation(e, tp, eg, ep, ev, re, r, rp)
   local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
   if ft <= 0 then return end
-  if ft >= 2 then ft = 2 end
-  if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then ft = 1 end
+  -- if ft >= 1 then ft = 1 end
+  -- if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then ft = 1 end
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
   local g = Duel.SelectMatchingCard(tp, s.filter2, tp, LOCATION_DECK, 0, 1,
-    ft, nil, e, tp)
+    1, nil, e, tp)
+
   if #g > 0 then
-    local t1 = g:GetFirst()
-    local t2 = g:GetNext()
-    Duel.SpecialSummonStep(t1, 0, tp, tp, false, false, POS_FACEUP)
+    -- local t1 = g:GetFirst()
+    -- local t2 = g:GetNext()
+    Duel.SpecialSummonStep(g:GetFirst(), 0, tp, tp, false, false, POS_FACEUP)
     --Cannot be used as synchro material
-    local e1 = Effect.CreateEffect(e:GetHandler())
-    e1:SetDescription(3310)
-    e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL + EFFECT_FLAG_CLIENT_HINT)
-    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e1:SetValue(1)
-    e1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    t1:RegisterEffect(e1)
-    if t2 then
-      Duel.SpecialSummonStep(t2, 0, tp, tp, false, false, POS_FACEUP)
-      local e2 = e1:Clone()
-      t2:RegisterEffect(e2)
-    end
+    -- local e1 = Effect.CreateEffect(e:GetHandler())
+    -- e1:SetDescription(3310)
+    -- e1:SetType(EFFECT_TYPE_SINGLE)
+    -- e1:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL + EFFECT_FLAG_CLIENT_HINT)
+    -- e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    -- e1:SetValue(1)
+    -- e1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    -- t1:RegisterEffect(e1)
+    -- if t2 then
+    --   Duel.SpecialSummonStep(t2, 0, tp, tp, false, false, POS_FACEUP)
+    --   local e2 = e1:Clone()
+    --   t2:RegisterEffect(e2)
+    -- end
     Duel.SpecialSummonComplete()
   end
 end
