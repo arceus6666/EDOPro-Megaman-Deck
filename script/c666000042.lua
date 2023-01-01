@@ -42,7 +42,8 @@ end
 s.listed_names = {
   BIOMETALS.BIOMETAL_H,
   PSEUDORIODS.HIVOLT,
-  PSEUDORIODS.HURIICAUNE
+  PSEUDORIODS.HURIICAUNE,
+  MEGAMEN.AEOLUS
 }
 s.material_setcode = { 0x8, ARCHETYPES.PSUEDOROID }
 
@@ -73,7 +74,7 @@ function s.e2Operation(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.filter2(c, e, tp)
-  return c:IsCode(666000056) and
+  return c:IsCode(MEGAMEN.AEOLUS) and
       c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
