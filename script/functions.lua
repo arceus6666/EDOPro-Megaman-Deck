@@ -42,6 +42,15 @@ function AvoidDMG(c)
   c:RegisterEffect(e)
 end
 
+function CannotSpecialSummon(c)
+  local e = Effect.CreateEffect(c)
+  e:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+  e:SetType(EFFECT_TYPE_SINGLE)
+  e:SetCode(EFFECT_SPSUMMON_CONDITION)
+  e:SetValue(aux.FALSE)
+  c:RegisterEffect(e)
+end
+
 function Card.IsBiometal(c)
   return c:IsCode(table.unpack(BIOMETALS))
 end
