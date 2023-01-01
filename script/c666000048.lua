@@ -75,7 +75,7 @@ end
 
 function s.filter2(c, e, tp)
   return c:IsCode(MEGAMEN.SIARNAQ) and
-      c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+      c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
 end
 
 function s.e3Condition(e, tp, eg, ep, ev, re, r, rp)
@@ -86,7 +86,7 @@ end
 function s.e3Target(e, tp, eg, ep, ev, re, r, rp, chk)
   if chk == 0 then
     return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-        Duel.IsExistingMatchingCard(s.filter, tp, LOCATION_DECK,
+        Duel.IsExistingMatchingCard(s.filter2, tp, LOCATION_DECK,
           0, 1, nil, e, tp)
   end
   Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK)
@@ -99,7 +99,7 @@ function s.e3Operation(e, tp, eg, ep, ev, re, r, rp)
   local g = Duel.SelectMatchingCard(tp, s.filter2, tp, LOCATION_DECK, 0, 1,
     1, nil, e, tp)
   if #g > 0 then
-    Duel.SpecialSummonStep(g:GetFirst(), 0, tp, tp, false, false, POS_FACEUP)
+    Duel.SpecialSummonStep(g:GetFirst(), 0, tp, tp, true, true, POS_FACEUP)
     Duel.SpecialSummonComplete()
   end
 end
