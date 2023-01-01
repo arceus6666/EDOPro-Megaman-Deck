@@ -75,7 +75,7 @@ end
 
 function s.filter2(c, e, tp)
   return c:IsCode(MEGAMEN.AEOLUS) and
-      c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+      c:IsCanBeSpecialSummoned(e, 0, tp, true, true)
 end
 
 function s.e3Condition(e, tp, eg, ep, ev, re, r, rp)
