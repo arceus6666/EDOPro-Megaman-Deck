@@ -20,6 +20,9 @@ function s.initial_effect(c)
   eSpSmMm:SetTarget(s.eSpSmMmTarget)
   eSpSmMm:SetOperation(s.eSpSmMmOperation)
   c:RegisterEffect(eSpSmMm)
+
+  --plcae self in pendulum
+  c:PlaceSelfInPendulumZone(1)
 end
 
 s.listed_series = { ARCHETYPES.MEGAMAN }
