@@ -42,6 +42,15 @@ function AvoidDMG(c)
   c:RegisterEffect(e)
 end
 
+function CannotSpecialSummon(c)
+  local e = Effect.CreateEffect(c)
+  e:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+  e:SetType(EFFECT_TYPE_SINGLE)
+  e:SetCode(EFFECT_SPSUMMON_CONDITION)
+  e:SetValue(aux.FALSE)
+  c:RegisterEffect(e)
+end
+
 function Card.IsBiometal(c)
   return c:IsCode(table.unpack(BIOMETALS))
 end
@@ -52,4 +61,29 @@ end
 
 function Card.IsIDGroup(c, ids)
   return c:IsCode(table.unpack(ids))
+end
+
+function Card.PlaceSelfInPendulumZone(c, strid)
+  local e = Effect.CreateEffect(c)
+  e:SetDescription(aux.Stringid(c:GetCardID(), strid))
+  e:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+  e:SetProperty(EFFECT_FLAG_DELAY)
+  e:SetCode(EVENT_DESTROYED)
+  e:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return r & REASON_EFFECT + REASON_BATTLE ~= 0 and
+        c:IsPreviousLocation(LOCATION_MZONE) and
+        c:IsFaceup()
+  end)
+  e:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.CheckPendulumZones(tp) end
+  end)
+  e:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    if not Duel.CheckPendulumZones(tp) then return false end
+    local ec = e:GetHandler()
+    if ec:IsRelateToEffect(e) then
+      Duel.MoveToField(ec, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
+    end
+  end)
+  c:RegisterEffect(e)
 end

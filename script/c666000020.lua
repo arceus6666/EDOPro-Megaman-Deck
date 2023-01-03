@@ -15,8 +15,6 @@ function s.initial_effect(c)
   c:RegisterEffect(e1)
 end
 
--- s.listed_names = {}
-
 function s.filter1(c)
   return c:IsIDGroup(BIOMETALS) and c:IsAbleToHand()
 end

@@ -16,7 +16,7 @@ function s.initial_effect(c)
   c:RegisterEffect(e1)
 end
 
-s.listed_names = { REPLOID_TOKEN }
+s.listed_names = { TOKENS.REPLOID }
 
 function s.e1Cost(e, tp, eg, ep, ev, re, r, rp, chk)
   if chk == 0 then

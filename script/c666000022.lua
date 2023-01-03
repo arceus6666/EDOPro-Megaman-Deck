@@ -20,13 +20,8 @@ function s.initial_effect(c)
   c:RegisterEffect(e1)
 end
 
---ciel
 s.material = { HUMANS.CIEL }
-
---ciel
 s.listed_names = { HUMANS.CIEL }
-
---megaman
 s.listed_series = { ARCHETYPES.MEGAMAN }
 
 function s.filter(c)
