@@ -50,8 +50,9 @@ function s.e2Condition(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e2Target(e, tp, eg, ep, ev, re, r, rp, chk)
-  if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
-        and Duel.IsExistingMatchingCard(s.filter, tp, 0x13, 0, 1, nil, e, tp)
+  if chk == 0 then
+    return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+        Duel.IsExistingMatchingCard(s.filter, tp, 0x13, 0, 1, nil, e, tp)
   end
   Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, 0x13)
 end

@@ -25,7 +25,6 @@ function s.initial_effect(c)
   c:RegisterEffect(e2)
 end
 
---vent, biometal x
 s.listed_names = { MEGAMEN.VENT, BIOMETALS.BIOMETAL_X }
 
 function s.spfilter(c, tp)

@@ -25,7 +25,6 @@ function s.initial_effect(c)
   c:RegisterEffect(e2)
 end
 
---aile, biometal x
 s.listed_names = { MEGAMEN.AILE, BIOMETALS.BIOMETAL_X }
 
 -- check if aile is equipped wiht biometal x

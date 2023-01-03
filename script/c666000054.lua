@@ -4,10 +4,10 @@ Duel.LoadScript("functions.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-  --pendulum summon
   Pendulum.AddProcedure(c, false)
-  --synchro summon
   c:EnableReviveLimit()
+  
+  --synchro summon
   Synchro.AddMajesticProcedure(c,
     aux.FilterBoolFunction(Card.IsCode, CYBER_ELFS.CREA), true,
     aux.FilterBoolFunction(Card.IsCode, CYBER_ELFS.PREA), true,
@@ -94,9 +94,6 @@ function s.epOperation(e, tp, eg, ep, ev, re, r, rp)
       g:GetFirst():IsLocation(LOCATION_HAND) then
     Duel.ConfirmCards(1 - tp, g)
     Duel.BreakEffect()
-    -- if Duel.SendtoHand(c, nil, REASON_EFFECT) > 0 then
-    --   Duel.ConfirmCards(1 - tp, c)
-    -- end
   end
 end
 
@@ -114,15 +111,12 @@ function s.e1Operation(e, tp, eg, ep, ev, re, r, rp)
   if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
       Duel.IsPlayerCanSpecialSummonMonster(tp, TOKENS.CYBER_ELF, 0, TYPES_TOKEN,
         500, 500, 1, RACE_SPELLCASTER, ATTRIBUTE_LIGHT) then
-    -- local rndtkn = Duel.GetRandomNumber(TOKENS.CYBER_ELF, TOKENS.CYBER_ELF + 4)
     local token = Duel.CreateToken(tp, TOKENS.CYBER_ELF)
     Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
   end
 end
 
 function s.filter(c, e, tp)
-  -- return c:IsRace(RACE_DRAGON) and
-  -- not c:IsCode(id) and
   return c:IsSetCard(ARCHETYPES.CYBER_ELF) and
       c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end

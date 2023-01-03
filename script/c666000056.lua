@@ -41,7 +41,8 @@ function s.eSpSmMmTarget(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
   end
   if chk == 0 then
     return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-        Duel.IsExistingTarget(s.eSpSmMmFilter, tp, LOCATION_GRAVE, 0, 1, nil, e, tp)
+        Duel.IsExistingTarget(s.eSpSmMmFilter, tp, LOCATION_GRAVE, 0, 1,
+          nil, e, tp)
   end
   Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
   local g = Duel.SelectTarget(tp, s.eSpSmMmFilter, tp, LOCATION_GRAVE, 0, 1, 1,
