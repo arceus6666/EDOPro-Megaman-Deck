@@ -48,9 +48,10 @@ s.listed_series = { ARCHETYPES.MEGAMAN }
 
 function s.xyzSummon(c, tp, xyzc)
   return c:IsFaceup() and
-      c:IsSetCard(ARCHETYPES.MEGAMAN, xyzc, SUMMON_TYPE_XYZ, tp) and
-      c:IsType(TYPE_XYZ, xyzc, SUMMON_TYPE_XYZ, tp) and
-      not c:IsSummonCode(xyzc, SUMMON_TYPE_XYZ, tp, id)
+      -- c:IsSetCard(ARCHETYPES.MEGAMAN, xyzc, SUMMON_TYPE_XYZ, tp) and
+      -- c:IsType(TYPE_XYZ, xyzc, SUMMON_TYPE_XYZ, tp) and
+      -- not c:IsSummonCode(xyzc, SUMMON_TYPE_XYZ, tp, id)
+      c:IsCode(MEGAMEN.COPY_X)
 end
 
 function s.imfilter(c)
