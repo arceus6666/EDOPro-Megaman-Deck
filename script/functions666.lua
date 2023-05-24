@@ -1,4 +1,4 @@
-Duel.LoadScript("constants.lua")
+Duel.LoadScript("constants666.lua")
 
 function FBF(...)
   local codes = { ... }

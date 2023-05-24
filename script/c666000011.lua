@@ -1,6 +1,6 @@
 -- biometal x
 
-Duel.LoadScript("functions.lua")
+Duel.LoadScript("functions666.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
