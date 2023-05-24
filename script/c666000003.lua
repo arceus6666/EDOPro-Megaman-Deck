@@ -34,7 +34,7 @@ function s.spfilter(c, tp)
 end
 
 -- checks if can summon
-function s.e1Condition(e, c)
+function s.e1Condition(c, e)
   if c == nil then return true end
   return Duel.CheckReleaseGroup(c:GetControler(), s.spfilter, 1,
     false, 1, true, c, c:GetControler(), nil, false, nil)

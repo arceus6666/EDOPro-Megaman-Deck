@@ -4,7 +4,7 @@ Duel.LoadScript("functions.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-  aux.AddEquipProcedure(c, nil, FBF(666000003))
+  aux.AddEquipProcedure(c, nil, FBF(MEGAMEN.AILE_MODEL_X))
 
   --atk up
   ATKUP(c, 700)
@@ -16,4 +16,4 @@ function s.initial_effect(c)
   AvoidDMG(c)
 end
 
-s.listed_names = { 666000003 }
+s.listed_names = { MEGAMEN.AILE_MODEL_X }
