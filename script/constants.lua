@@ -6,7 +6,6 @@ ARCHETYPES = {
   CYBER_ELF  = 0x6D71
 }
 
-
 MEGAMEN = {
   AILE            = 666000001,
   VENT            = 666000002,
