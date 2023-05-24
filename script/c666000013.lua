@@ -1,6 +1,7 @@
 -- biometal p
 
 Duel.LoadScript("functions.lua")
+Duel.LoadScript("constants.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
