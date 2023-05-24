@@ -4,7 +4,7 @@ Duel.LoadScript("functions.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-  aux.AddEquipProcedure(c, nil, FBF(MEGAMEN.AILE_MODEL_X))
+  aux.AddEquipProcedure(c, nil, aux.FBF(MEGAMEN.AILE_MODEL_X))
 
   --atk up
   ATKUP(c, 700)

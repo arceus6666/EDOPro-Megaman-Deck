@@ -1,6 +1,6 @@
 Duel.LoadScript("constants.lua")
 
-function FBF(...)
+function Auxiliary.FBF(...)
   local codes = { ... }
   local res = {}
   for i, v in ipairs(codes) do
